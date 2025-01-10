@@ -1,1 +1,10 @@
-<p>side-menu works!</p>
+<ul>
+  <li
+    *ngFor="let item of menuItems"
+    [routerLink]="[ item.route ]"
+    routerLinkActive="bg-blue-100 text-blue-600 font-semibold"
+    class="block px-4 py-3 rounded-lg hover:bg-gray-100 text-gray-700 transition-colors cursor-pointer"
+  >
+    {{ item.name }}
+  </li>
+</ul>
