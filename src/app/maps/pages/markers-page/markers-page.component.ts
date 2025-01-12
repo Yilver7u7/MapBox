@@ -71,6 +71,14 @@ export class MarkersPageComponent {
     this.markers.splice(index, 1);
   }
 
+  flyTo( marker: Marker){
+    if( !this.map ) return
+
+    this.map?.flyTo({
+      center: marker.getLngLat(),
+      zoom: 15,
+    });
+  }
 
 
 }

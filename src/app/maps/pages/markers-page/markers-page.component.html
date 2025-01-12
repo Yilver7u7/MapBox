@@ -6,7 +6,8 @@
     class="px-4 py-2 rounded-lg text-gray-800 bg-blue-300 hover:bg-gray-100 transition-colors cursor-pointer"
     *ngFor="let marker of markers; let i = index"
     [ngStyle]=" {backgroundColor: marker.color}"
-    (dblclick)="deleteMarket(i)">
+    (dblclick)="deleteMarket(i)"
+    (click)="flyTo( marker.marker)">
     Marker {{ i + 1}}
   </li>
 </ul>
