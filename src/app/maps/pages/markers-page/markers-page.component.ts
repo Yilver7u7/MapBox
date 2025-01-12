@@ -73,6 +73,10 @@ export class MarkersPageComponent {
 
     this.saceLocalStorage();
 
+    marker.on('dragend', () => {
+      this.saceLocalStorage();
+    })
+
   }
 
   deleteMarket( index: number ){
