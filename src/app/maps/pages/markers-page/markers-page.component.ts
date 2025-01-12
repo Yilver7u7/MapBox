@@ -6,6 +6,11 @@ interface MarkerAndColor{
   marker: Marker;
 }
 
+interface PlainMarker{
+  color: string;
+  lngLat: number[];
+}
+
 @Component({
   templateUrl: './markers-page.component.html',
   styleUrl: './markers-page.component.css'
@@ -33,6 +38,8 @@ export class MarkersPageComponent {
       center: this.currentLngLat,
       zoom: this.zoom, // starting zoom
     });
+
+    this.readLocalStorage();
 
     // const markerHtml = document.createElement('h1');
     // markerHtml.innerHTML ='YOU ARE HERE MY NIGGA';
@@ -64,6 +71,8 @@ export class MarkersPageComponent {
     }).setLngLat( LngLat ).addTo( this.map )
     this.markers.push({ color, marker,});
 
+    this.saceLocalStorage();
+
   }
 
   deleteMarket( index: number ){
@@ -77,6 +86,32 @@ export class MarkersPageComponent {
     this.map?.flyTo({
       center: marker.getLngLat(),
       zoom: 15,
+    });
+  }
+
+  //Here we prepare the information that we want to save into the localstorage
+  saceLocalStorage(){
+    const plainMarker: PlainMarker[] = this.markers.map( ({color, marker}) => {
+      return {
+        color,
+        lngLat: marker.getLngLat().toArray()
+      }
+    })
+
+    localStorage.setItem('plainMarker', JSON.stringify(plainMarker));
+  }
+
+  readLocalStorage(){
+    const plainMarkersString = localStorage.getItem('plainMarker') ?? '[]';
+
+    const plainMarkers: PlainMarker[] = JSON.parse(plainMarkersString); //!Usar unicamente cuando se tenga claro que valor se retorna!
+
+    plainMarkers.forEach( ({color, lngLat}) => {
+      const [lng, lat] = lngLat
+      const coords = new LngLat( lng, lat)
+
+      this.addMarker( coords, color)
+
     });
   }
 
