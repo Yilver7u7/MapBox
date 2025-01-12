@@ -1,1 +1,19 @@
-<p>markers-page works!</p>
+<div #map class="w-screen h-screen relative"></div>
+
+<!-- Lista de marcadores -->
+<ul class="fixed top-5 right-5 bg-none shadow-lg rounded-lg overflow-hidden space-y-2">
+  <li
+    class="px-4 py-2 rounded-lg text-gray-800 bg-blue-300 hover:bg-gray-100 transition-colors cursor-pointer"
+    *ngFor="let marker of markers; let i = index"
+    [ngStyle]=" {backgroundColor: marker.color}"
+    (dblclick)="deleteMarket(i)">
+    Marker {{ i + 1}}
+  </li>
+</ul>
+
+<!-- Botón para agregar marcador -->
+<button
+  (click)="createMarker()"
+  class="fixed bottom-8 right-5 bg-blue-600 text-white font-semibold px-4 py-2 rounded-full shadow-md hover:bg-blue-700 active:scale-95 transition-transform">
+  + Add Marker
+</button>
