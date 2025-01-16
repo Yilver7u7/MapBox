@@ -39,6 +39,8 @@ export class MarkersPageComponent {
       zoom: this.zoom, // starting zoom
     });
 
+    this.mapListeners();
+
     this.readLocalStorage();
 
     // const markerHtml = document.createElement('h1');
@@ -119,5 +121,45 @@ export class MarkersPageComponent {
     });
   }
 
+
+  mapListeners(){
+    if( !this.map )throw 'The Map is not loading'
+
+    this.map.on('zoom', (ev) => {
+      this.zoom = this.map!.getZoom();
+    })
+
+
+    this.map.on('zoomend', (ev) => {
+      if(this.map!.getZoom() < 18) return;
+      this.map!.zoomTo(18);
+    })
+
+    this.map.on('move', () => {
+      this.currentLngLat = this.map!.getCenter();
+      const { lng, lat } = this.currentLngLat
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.map?.remove();
+  }
+
+  zoomIn(){
+    this.zoom = this.map!.getZoom();
+    this.map?.zoomIn();
+    console.log(this.zoom)
+  }
+
+  zoomOut(){
+    this.zoom = this.map!.getZoom();
+    this.map?.zoomOut();
+    console.log(this.zoom)
+  }
+
+  zoomChanged( value: string ){
+    this.zoom = Number(value);
+    this.map?.zoomTo( 18 );
+  }
 
 }

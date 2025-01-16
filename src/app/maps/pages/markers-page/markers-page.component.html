@@ -18,3 +18,40 @@
   class="fixed bottom-8 right-5 bg-blue-600 text-white font-semibold px-4 py-2 rounded-full shadow-md hover:bg-blue-700 active:scale-95 transition-transform">
   + Add Marker
 </button>
+
+<div
+  class="floating-range fixed bottom-5 left-5 z-50 w-[400px] bg-white/80 backdrop-blur-md rounded-lg shadow-sm p-3"
+>
+  <div class="floating-content flex items-center justify-between space-x-2">
+    <button
+      (click)="zoomOut()"
+      class="btn text-gray-700 bg-gray-100 px-3 py-1 rounded hover:bg-gray-200"
+    >
+      -
+    </button>
+
+    <input
+      type="range"
+      class="form-range flex-1 appearance-none h-1 bg-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+      min="-2"
+      max="18"
+      [value]="zoom"
+      (input)="zoomChanged(zoomInput.value)"
+      #zoomInput
+    >
+
+    <button
+      (click)="zoomIn()"
+      class="btn text-gray-700 bg-gray-100 px-3 py-1 rounded hover:bg-gray-200"
+    >
+      +
+    </button>
+  </div>
+
+  <span class="form-label block mt-2 text-sm text-gray-600 text-center">
+    Zoom: {{ zoom | number: '2.2-2' }}
+    <br>
+    Lng, Lat {{ 'Algo' }}
+  </span>
+</div>
+
